@@ -1,0 +1,63 @@
+﻿@model E_Shop_MVC.ViewModels.CompanyNewViewModel
+@{
+    ViewData["Title"] = "Nytt varumärke";
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a asp-controller="Company" asp-action="Index">Varumärken</a></li>
+                    <li>Nytt varumärke</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+
+        <form class="form-horizontal" asp-controller="Company" asp-action="New" method="post">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Nytt Varumärke</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="Title">TITEL</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="Title">
+                        <span asp-validation-for="Title" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">Spara varumärke</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+
+
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
+

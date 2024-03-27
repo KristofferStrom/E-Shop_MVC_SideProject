@@ -1,0 +1,155 @@
+﻿@model E_Shop_MVC.ViewModels.ProductEditViewModel
+@{
+    ViewData["Title"] = "Ändra produkt";
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a asp-controller="Product" asp-action="Index">Produkter</a></li>
+                    <li>@Model.Title</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+
+        <form class="form-horizontal" asp-controller="Product" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Ändra - @Model.Title</legend>
+                <div class="img-edit">
+                    <img src="~/img/@Model.ImgTitle" />
+                </div>
+
+
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="Id">ID</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="Id" readonly="readonly">
+                        <span asp-validation-for="Id" class="field-validation-error"></span>
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="Title">TITEL</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="Title">
+                        <span asp-validation-for="Title" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="Price">PRIS</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="Price" onclick="this.value = this.value.replace(/0,00/g, '')">
+                        <span asp-validation-for="Price" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="SelectedSubCategoryId">UNDERKATEGORI</label>
+                    <div class="col-md-4">
+                        <select asp-for="SelectedSubCategoryId" asp-items="Model.SubCategories" class="form-control"></select>
+                        <span asp-validation-for="SelectedSubCategoryId" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="InStock">KVANTITET I LAGER</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="InStock">
+                        <span asp-validation-for="InStock" class="field-validation-error text-danger"></span>
+
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="SelectedCompanyId">VARUMÄRKE</label>
+                    <div class="col-md-4">
+                        <select class="form-control" asp-for="SelectedCompanyId" asp-items="Model.Companies"></select>
+                        <span asp-validation-for="SelectedCompanyId" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="SelectedColorId">FÄRG</label>
+                    <div class="col-md-4">
+                        <select class="form-control" asp-for="SelectedColorId" asp-items="Model.Colors"></select>
+                        <span asp-validation-for="SelectedColorId" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="WarrantyYears">GARANTI <small>(ÅR)</small></label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="WarrantyYears">
+                        <span asp-validation-for="WarrantyYears" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="ShortDescription">KORTARE PRODUKTBESKRIVNING</label>
+                    <div class="col-md-4">
+                        <textarea class="form-control" asp-for="ShortDescription"></textarea>
+                        <span asp-validation-for="ShortDescription" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="LongDescription">LÄNGRE PRODUKTBESKRIVNING</label>
+                    <div class="col-md-4">
+                        <textarea class="form-control" asp-for="LongDescription"></textarea>
+                        <span asp-validation-for="LongDescription" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Button -->
+                <div class="form-group">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">Spara ändringar</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+
+
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/js/ny.js"></script>
+}
+

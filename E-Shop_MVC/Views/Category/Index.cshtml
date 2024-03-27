@@ -1,0 +1,98 @@
+﻿@model E_Shop_MVC.ViewModels.CategoryIndexViewModel
+@{
+    ViewData["Title"] = "Kategorier";
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section" style="margin: 0; padding: 20px 20px;">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-6">
+                <div class="header-search" style="padding: 0;">
+                    <form style="padding-left: 30px;" asp-controller="Category" asp-action="Index" method="get">
+
+                        <input asp-for="q" type="text" class="input" placeholder="Sök på kategori">
+                        <button type="submit" class="search-btn">Sök</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+
+        <div id="SelectedPage"></div>
+        <div id="CurrentPage">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 200px;"><a class="@(Model.SelectedColumn == "id" ? "active-col" : "")" asp-controller="Category" asp-action="Index" asp-route-isDesc="@Model.IsDescId" asp-route-col="id" asp-route-q="@Model.q">Id</a></th>
+                        
+                        
+                        <th scope="col" style="width: 820px;"><a class="@(Model.SelectedColumn == "title" ? "active-col" : "")" asp-controller="Category" asp-action="Index" asp-route-isDesc="@Model.IsDescTitle" asp-route-col="title" asp-route-q="@Model.q">Titel</a></th>
+                        
+                        <th scope="col"></th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <tr>
+                            <th scope="row">@cat.Id</th>
+                            <td>@cat.Title</td>
+                            
+                            <td><a asp-controller="Category" asp-action="Edit" asp-route-id="@cat.Id" type="button" class="btn btn-primary btn-sm">Ändra</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div id="div_position"></div>
+        <a asp-controller="Category" asp-action="New" type="button" class="btn btn-primary btn-sm">Ny Kategori</a>
+        <!-- store bottom filter -->
+        <div class="store-filter clearfix">
+            <ul class="store-pagination">
+                @for (int i = 1; i < @Model.TotalNumberOfPages + 1; i++)
+                {
+                    if (i == @Model.SelectedPageNumber)
+                    {
+                        <li class="active">@i</li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Category" asp-action="Index" asp-route-pageNr="@i" asp-route-col="@Model.SelectedColumn" asp-route-isDesc="@Model.IsDesc" asp-route-q="@Model.q">@i</a></li>
+                    }
+
+                }
+                @if (Model.SelectedPageNumber < Model.TotalNumberOfPages)
+                {
+                    <li><a asp-controller="Category" asp-action="Index" asp-route-pageNr="@(Model.SelectedPageNumber+1)" asp-route-q="@Model.q"><i class="fa fa-angle-right"></i></a></li>
+                }
+
+            </ul>
+        </div>
+        <!-- /store bottom filter -->
+
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
+
+

@@ -1,0 +1,279 @@
+﻿@model E_Shop_MVC.ViewModels.HomeIndexViewModel
+@{
+    ViewData["Title"] = "Startsida";
+
+}
+
+
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- ASIDE -->
+            <div id="aside" class="col-md-3">
+                <!-- aside Widget -->
+                <div class="aside categories">
+                    <h3 class="aside-title">Kategorier</h3>
+
+                    <div>
+
+                        <ul>
+
+
+                            @foreach (var cat in Model.TopCategories)
+                            {
+                                <li><a asp-controller="Category" asp-action="DisplayProducts" asp-route-catId="@cat.Id">@cat.Title<small>(@cat.NumberOfProducts)</small></a></li>
+                                <hr>
+                            }
+
+
+                        </ul>
+
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            Se ALLA kategorier <i class="icofont-arrow-down icofont-1x"></i>
+
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <ul>
+                                            @foreach (var cat in Model.AllCategories)
+                                            {
+                                                <li><a asp-controller="Category" asp-action="DisplayProducts" asp-route-catId="@cat.Id">@cat.Title<small>(@cat.NumberOfProducts)</small></a></li>
+                                            }
+
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- aside Widget -->
+                <div class="aside categories">
+                    <h3 class="aside-title">Varumärken</h3>
+                    <div>
+                        <ul>
+                            @foreach (var com in Model.TopCompanies)
+                            {
+                                <li><a asp-controller="Company" asp-action="DisplayProducts" asp-route-id="@com.Id">@com.Title<small>(@com.NumberOfProducts)</small></a></li>
+
+                                <hr>
+                            }
+
+
+                        </ul>
+                        <div id="accordionTwo">
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            Se ALLA varumärken <i class="icofont-arrow-down icofont-1x"></i>
+
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionTwo">
+                                    <div class="card-body">
+                                        <ul>
+                                            @foreach (var com in Model.AllCompanies)
+                                            {
+                                                <li><a asp-controller="Company" asp-action="DisplayProducts" asp-route-id="@com.Id">@com.Title<small>(@com.NumberOfProducts)</small></a></li>
+                                            }
+
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /aside Widget -->
+                <!-- /aside Widget -->
+                <div class="aside">
+                    <div class="section-title">
+                        <h4 class="aside-title">HÖGST BETYG</h4>
+                        <div class="section-nav">
+                            <div id="slick-nav-3" class="products-slick-nav"></div>
+                        </div>
+                    </div>
+
+                    <div class="products-widget-slick" data-nav="#slick-nav-3">
+                        <div>
+
+                            @for (int i = 0; i < 3; i++)
+                            {
+                                <!-- product widget -->
+                                <div class="product-widget">
+                                    <div class="product-img">
+                                        <img src="~/img/@Model.TopRatedProducts[i].ImgTitle" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">@Model.TopRatedProducts[i].CompanyTitle</p>
+                                        <h3 class="product-name"><a asp-controller="Product" asp-action="Details" asp-route-prodId="@Model.TopRatedProducts[i].Id">@Model.TopRatedProducts[i].Title</a></h3>
+                                        <h4 class="product-price">@Model.TopRatedProducts[i].Price kr</h4>
+                                    </div>
+                                </div>
+                                <!-- /product widget -->
+                            }
+                        </div>
+
+                        <div>
+                            @for (int i = 3; i < 6; i++)
+                            {
+                                <!-- product widget -->
+                                <div class="product-widget">
+                                    <div class="product-img">
+                                        <img src="~/img/@Model.TopRatedProducts[i].ImgTitle" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">@Model.TopRatedProducts[i].CompanyTitle</p>
+                                        <h3 class="product-name"><a asp-controller="Product" asp-action="Details" asp-route-prodId="@Model.TopRatedProducts[i].Id">@Model.TopRatedProducts[i].Title</a></h3>
+                                        <h4 class="product-price">@Model.TopRatedProducts[i].Price kr</h4>
+                                    </div>
+                                </div>
+                                <!-- /product widget -->
+                            }
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!-- /ASIDE -->
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+                <!-- store top filter -->
+                <div class="store-filter clearfix">
+                    <div class="store-sort">
+                        <form method="post">
+                            <label asp-for="SelectedSortBy">
+                                Sortera på:
+                                <select asp-for="SelectedSortBy" asp-items="Model.SortBy" class="input-select"></select>
+                                <span asp-validation-for="SelectedSortBy" class="field-validation-error text-danger"></span>
+                            </label>
+
+                            <label asp-for="SelectedIncludeProductAmount">
+                                Visa:
+                                <select asp-for="SelectedIncludeProductAmount" asp-items="Model.IncludeProductAmount" class="input-select"></select>
+                                <span asp-validation-for="SelectedIncludeProductAmount" class="field-validation-error text-danger"></span>
+                            </label>
+                            <input asp-for="q"/>
+                            <button type="submit" class="btn btn-info" style="background-color: transparent; color: black;">Sortera</button>
+                        </form>
+                        
+                    </div>
+
+
+                </div>
+                <!-- /store top filter -->
+                <!-- store products -->
+                
+                <div id="CurrentPage">
+
+                    <div class="row">
+
+
+
+
+                        @foreach (var prod in Model.Products)
+                        {
+
+                            <div class="col-md-3 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="~/img/@prod.ImgTitle" alt="" class="center">
+                                        <div class="product-label">
+                                            @if (prod.IsTopRated)
+                                            {
+                                                <p><span class="new">TOPPBETYG</span></p>
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="product-body">
+                                        <div class="product-company">
+                                            <a asp-controller="Company" asp-action="DisplayProducts" asp-route-id="@prod.CompanyId">@prod.CompanyTitle</a>
+                                        </div>
+
+                                        <h3 class="product-name"><a asp-controller="Product" asp-action="Details" asp-route-prodId="@prod.Id">@prod.Title</a></h3>
+                                        <h4 class="product-price" style="font-size: 13px;">@prod.Price kr</h4>
+                                        <div class="product-rating">
+                                            @for (var i = 1; i < 6; i++)
+                                            {
+                                                if (i > prod.Rate)
+                                                {
+                                                    <i class="fa fa-star-o"></i>
+
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-star"></i>
+                                                }
+
+                                            }
+                                        </div>
+                                        <div class="product-btns">
+                                            <a asp-controller="Product" asp-action="Details" asp-route-prodId="@prod.Id" class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Se produkt</span></a>
+
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            <div class="clearfix visible-sm visible-xs"></div>
+                        }
+
+                    </div>
+                    <!-- /store products -->
+                    <!-- store bottom filter -->
+                    <div class="store-filter clearfix">
+                        
+                        <ul class="store-pagination">
+                            @for (int i = 1; i < @Model.TotalNumberOfPages + 1; i++)
+                            {
+                                if (i == @Model.SelectedPageNumber)
+                                {
+                                    <li class="active">@i</li>
+                                }
+                                else
+                                {
+                                    <li><a asp-controller="Home" asp-action="Index" asp-route-pageNr="@i" asp-route-q ="@Model.q" asp-route-selectedSortBy="@Model.SelectedSortBy" asp-route-selectedAmountPerPage="@Model.SelectedIncludeProductAmount">@i</a></li>
+                                }
+
+                            }
+                            @if (Model.SelectedPageNumber < Model.TotalNumberOfPages)
+                            {
+                                <li><a asp-controller="Home" asp-action="Index" asp-route-pageNr="@(Model.SelectedPageNumber + 1)" asp-route-q ="@Model.q" asp-route-selectedSortBy="@Model.SelectedSortBy" asp-route-selectedAmountPerPage="@Model.SelectedIncludeProductAmount"><i class="fa fa-angle-right"></i></a></li>
+                            }
+
+                        </ul>
+                    </div>
+                    <!-- /store bottom filter -->
+                </div>
+
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>

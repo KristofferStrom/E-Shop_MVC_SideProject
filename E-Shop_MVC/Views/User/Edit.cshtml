@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model E_Shop_MVC.ViewModels.UserEditViewModel
+@{
+    ViewData["Title"] = "Ändra användare";
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a asp-controller="User" asp-action="Index">Användare</a></li>
+                    <li>@Model.UserName</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        
+        
+        
+        
+
+        <form class="form-horizontal" asp-controller="User" asp-action="Edit" method="post">
+            <fieldset>
+
+                @*Form Name*@ 
+                <legend>Ändra - @Model.UserName</legend>
+
+
+
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="UserId">ID</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="UserId" readonly="readonly">
+                        <span asp-validation-for="UserId" class="field-validation-error"></span>
+                    </div>
+                </div>
+                 @*Text input*@
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="UserName">Användarnamn</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="UserName">
+                        <span asp-validation-for="UserName" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+                
+                <h3>Roller</h3>
+                @for (int i = 0; i < Model.Roles.Count; i++)
+                {
+                    
+                    <div class="form-check">
+                        <input asp-for="Roles[i].RoleId"/>
+                        <input asp-for="Roles[i].RoleName"/>
+                        <input class="form-check-input" asp-for="Roles[i].IsSelected">
+                        <label class="form-check-label" asp-for="Roles[i].IsSelected">
+                            @Model.Roles[i].RoleName
+                        </label>
+                    </div>
+                    
+                   
+                }
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+
+
+                <!-- Button -->
+                <div class="form-group">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">Spara ändringar</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+
+
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
+

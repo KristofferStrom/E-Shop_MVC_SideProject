@@ -1,0 +1,26 @@
+﻿@model E_Shop_MVC.ViewModels.CategoryShowTreeViewModel
+@{
+    Layout = null;
+}
+
+<div id="tree" class="row">
+    <div class="col-md-12">
+        <ul class="breadcrumb-tree">
+
+            <li><a asp-controller="Home" asp-action="Index">Startsida</a></li>
+
+            @if (Model.SubCategory != null)
+            {
+                <li><a asp-controller="Category" asp-action="DisplayProducts" asp-route-catId="@Model.Category.Id">@Model.Category.Title <small>(@Model.Category.NumberOfProducts)</small></a></li>
+                <li>@Model.SubCategory.Title <small>(@Model.SubCategory.NumberOfProducts)</small></li>
+            }
+            else
+            {
+                <li>@Model.Category.Title <small>(@Model.Category.NumberOfProducts)</small></li>
+            }
+
+
+        </ul>
+    </div>
+   
+</div>

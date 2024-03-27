@@ -1,0 +1,104 @@
+﻿@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model E_Shop_MVC.ViewModels.UserNewViewModel
+@{
+    ViewData["Title"] = "Ny användare";
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a asp-controller="User" asp-action="Index">Användare</a></li>
+                    <li>Ny Användare</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        
+        
+        
+        
+
+        <form class="form-horizontal" asp-controller="User" asp-action="New" method="post">
+            <fieldset>
+
+
+                <legend>Ny Användare</legend>
+
+
+
+
+                @*Text input*@
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="Email">Mejladress</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="Email">
+                        <span asp-validation-for="Email" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="Password">Lösenord</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="Password">
+                        <span asp-validation-for="Password" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="ConfirmPassword">Bekräfta lösenord</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="ConfirmPassword">
+                        <span asp-validation-for="ConfirmPassword" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+                <h3>Roller</h3>
+                @for (int i = 0; i < Model.Roles.Count; i++)
+                {
+                    
+                    <div class="form-check">
+                        <input asp-for="Roles[i].RoleId" />
+                        <input asp-for="Roles[i].RoleName" />
+                        <input class="form-check-input" asp-for="Roles[i].IsSelected">
+                        <label class="form-check-label" asp-for="Roles[i].IsSelected">
+                            @Model.Roles[i].RoleName
+                        </label>
+                    </div>
+
+
+                }
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+
+
+                <!-- Button -->
+                <div class="form-group">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">Spara ändringar</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+
+
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
+

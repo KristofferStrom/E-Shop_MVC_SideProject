@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    string activeController = "";
+    if (ViewContext.RouteData.Values["Controller"] != null)
+    {
+        activeController = ViewContext.RouteData.Values["Controller"].ToString();
+    }
+}
+
+
+@if (SignInManager.IsSignedIn(User) && (User.IsInRole("ProductManager") && !User.IsInRole("Admin")))
+{
+    <div id="responsive-nav">
+
+        <ul class="main-nav nav navbar-nav">
+            <li class="@(activeController == "Home" ? "active" : "")"><a asp-controller="Home" asp-action="Index">Startsida</a></li>
+            <li class="@(activeController == "Category" ? "active" : "")"><a asp-controller="Category" asp-action="Index">Kategorier</a></li>
+            <li class="@(activeController == "SubCategory" ? "active" : "")"><a asp-controller="SubCategory" asp-action="Index">UnderKategorier</a></li>
+            <li class="@(activeController == "Product" ? "active" : "")"><a asp-controller="Product" asp-action="Index">Produkter</a></li>
+            <li class="@(activeController == "Company" ? "active" : "")"><a asp-controller="Company" asp-action="Index">Varumärken</a></li>
+        </ul>
+
+    </div>
+}
+else if (SignInManager.IsSignedIn(User))
+{
+    <div id="responsive-nav">
+
+        <ul class="main-nav nav navbar-nav">
+            <li class="@(activeController == "Home" ? "active" : "")"><a asp-controller="Home" asp-action="Index">Startsida</a></li>
+            <li class="@(activeController == "Category" ? "active" : "")"><a asp-controller="Category" asp-action="Index">Kategorier</a></li>
+            <li class="@(activeController == "SubCategory" ? "active" : "")"><a asp-controller="SubCategory" asp-action="Index">UnderKategorier</a></li>
+            <li class="@(activeController == "Product" ? "active" : "")"><a asp-controller="Product" asp-action="Index">Produkter</a></li>
+            <li class="@(activeController == "Company" ? "active" : "")"><a asp-controller="Company" asp-action="Index">Varumärken</a></li>
+            <li class="@(activeController == "User" ? "active" : "")"><a asp-controller="User" asp-action="Index">Användare</a></li>
+        </ul>
+
+    </div>
+}

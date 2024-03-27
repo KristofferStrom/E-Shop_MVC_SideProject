@@ -1,0 +1,74 @@
+﻿@model E_Shop_MVC.ViewModels.SubCategoryNewViewModel
+@{
+    ViewData["Title"] = "Ny underkategori";
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a asp-controller="SubCategory" asp-action="Index">Underkategorier</a></li>
+                    <li>Ny Underkategori</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+
+        <form class="form-horizontal" asp-controller="SubCategory" asp-action="New" method="post">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Ny Underkategori</legend>
+                
+
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="Title">TITEL</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="Title">
+                        <span asp-validation-for="Title" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="SelectedCategoryId">Kategori</label>
+                    <div class="col-md-4">
+                        <select class="form-control" asp-for="SelectedCategoryId" asp-items="Model.Categories"></select>
+                        <span asp-validation-for="SelectedCategoryId" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">Spara ändringar</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+
+
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+

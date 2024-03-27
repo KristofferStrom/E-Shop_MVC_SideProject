@@ -1,0 +1,80 @@
+
+td > img {
+    height: 40px;
+    max-width: 40px;
+}
+
+.img-edit {
+    position: absolute;
+    margin-left: 10px;
+}
+.img-edit > img {
+    height: 150px;
+    width: auto;
+}
+.aside > .section-title > .aside-title> h4 {
+    text-transform: uppercase;
+}
+p > span {
+    font-size: 11px;
+    background-color: #D10024;
+    color: white;
+    padding: 2px 4px;
+    box-shadow: 1px 1px 1px gray;
+}
+
+
+.product > .product-img > img.center {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    padding-top: 10px;
+}
+
+.product-body {
+    padding-top: 0;
+}
+
+.product-body > .product-name a {
+    font-size: 12px;
+}
+
+.product-body > .product-company a {
+    font-size: 12px;
+}
+
+.product-body > .product-price {
+    font-size: 2px;
+}
+.active-col {
+    color: #d10023;
+    font-weight: bold;
+}
+#top-header {
+    color: white;
+}
+.categories {
+    margin-top: 30px;
+    margin-bottom: 70px;
+}
+
+
+#accordion button, #accordionTwo button {
+    padding: 0 !important;
+    text-transform: uppercase !important;
+    font-size: 12px;
+    font-weight: 500;
+    color: black !important;
+}
+    #accordion button:hover, #accordionTwo button:hover {
+        color: #d10023 !important;
+        text-decoration: none !important;
+        text-transform: uppercase !important;
+    }
+    #accordion button:focus, #accordionTwo button:focus {
+        text-decoration: none !important;
+        text-transform: uppercase !important;
+        outline: none !important;
+        border: none !important;
+    }

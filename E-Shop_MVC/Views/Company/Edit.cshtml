@@ -1,0 +1,73 @@
+﻿@model E_Shop_MVC.ViewModels.CompanyEditViewModel
+@{
+    ViewData["Title"] = "Ändra Varumärke";
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a asp-controller="Company" asp-action="Index">Varumärken</a></li>
+                    <li>@Model.Title</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+
+        <form class="form-horizontal" asp-controller="Company" asp-action="Edit" method="post">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Ändra - @Model.Title</legend>
+                
+
+
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="Id">ID</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="Id" readonly="readonly">
+                        <span asp-validation-for="Id" class="field-validation-error"></span>
+                    </div>
+                </div>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" asp-for="Title">TITEL</label>
+                    <div class="col-md-4">
+                        <input class="form-control" asp-for="Title">
+                        <span asp-validation-for="Title" class="field-validation-error text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">Spara ändringar</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+
+
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
+

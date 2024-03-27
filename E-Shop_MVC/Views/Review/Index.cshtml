@@ -1,0 +1,77 @@
+﻿@model E_Shop_MVC.ViewModels.ReviewIndexViewModel
+
+@{
+    ViewData["Title"] = "Recensioner";
+}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a asp-controller="Home" asp-action="Index">Startsida</a></li>
+                    <li><a asp-controller="Category" asp-action="DisplayProducts" asp-route-catId="@Model.Category.Id">@Model.Category.Title <small>(@Model.Category.NumberOfProducts)</small></a></li>
+                    <li><a asp-controller="Category" asp-action="DisplayProducts" asp-route-subCatId="@Model.SubCategory.Id" asp-route-catId="@Model.Category.Id">@Model.SubCategory.Title <small>(@Model.SubCategory.NumberOfProducts)</small></a></li>
+                    <li><a asp-controller="Product" asp-action="Details" asp-route-prodId="@Model.Product.Id">@Model.Product.Title</a></li>
+                    <li>Recensioner</li>
+                </ul>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+<br />
+<br />
+<legend style="margin-left: 55px;">@Model.Product.Title</legend>
+<div class="section">
+    <div class="container">
+
+        <!-- Reviews -->
+        <div class="col-md-6">
+            <div id="reviews">
+                <ul class="reviews" id="review">
+                    @foreach (var rev in Model.Reviews)
+                    {
+                        <li>
+                            <div class="review-heading">
+                                <h5 class="name">@rev.CustomerName</h5>
+                                <p class="date">@rev.Date.ToShortDateString()</p>
+                                <div class="review-rating">
+                                    @for (var i = 1; i < 6; i++)
+                                    {
+                                        if (i > rev.Rate)
+                                        {
+                                            <i class="fa fa-star-o"></i>
+
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-star"></i>
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+                            <div class="review-body">
+                                <p>@rev.Review</p>
+                            </div>
+                        </li>
+                    }
+
+
+
+
+                </ul>
+                <ul class="reviews-pagination">
+                </ul>
+            </div>
+
+        </div>
+        <!-- /Reviews -->
+    </div>
+</div>

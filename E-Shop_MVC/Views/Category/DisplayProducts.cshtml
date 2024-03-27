@@ -1,0 +1,233 @@
+﻿@model E_Shop_MVC.ViewModels.CategoryDisplayProductsViewModel
+@{
+    ViewData["Title"] = "Produkter";
+
+    
+    
+}
+
+<!-- BREADCRUMB -->
+ <div id="breadcrumb" class="section" style="margin: 0; padding: 20px 20px;">
+
+     <div class="container">
+         <div id="newTree"></div>
+
+         <div id="tree" class="row">
+             <div class="col-md-12">
+                 <ul class="breadcrumb-tree">
+
+                     <li><a asp-controller="Home" asp-action="Index">Startsida</a></li>
+
+                     @if (Model.SubCategory != null)
+                     {
+                         <li><a asp-controller="Category" asp-action="DisplayProducts" asp-route-catId="@Model.Category.Id">@Model.Category.Title <small>(@Model.Category.NumberOfProducts)</small></a></li>
+                         <li>@Model.SubCategory.Title <small>(@Model.SubCategory.NumberOfProducts)</small></li>
+                     }
+                     else
+                     {
+                         <li>@Model.Category.Title <small>(@Model.Category.NumberOfProducts)</small></li>
+                     }
+
+
+                 </ul>
+             </div>
+             
+         </div>
+
+     </div>
+
+</div> 
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- ASIDE -->
+            <div id="aside" class="col-md-3">
+
+                <!-- aside Widget -->
+                <div class="aside categories">
+                    <h3 class="aside-title">Varumärken<br /><small>(@Model.Category.Title)</small></h3>
+
+                    <div>
+                        <ul>
+                            @foreach (var com in Model.Companies)
+                            {
+                                <li><a asp-controller="Company" asp-action="DisplayProducts" asp-route-id="@com.Id">@com.Title<small>(@com.NumberOfProducts)</small></a></li>
+                                <hr />
+                            }
+
+
+                        </ul>
+
+                    </div>
+                </div>
+                <!-- /aside Widget -->
+                <!-- aside Widget -->
+                <div class="aside">
+                    <div class="section-title">
+                        <h4 class="aside-title">HÖGST BETYG</h4>
+                        <div class="section-nav">
+                            <div id="slick-nav-3" class="products-slick-nav"></div>
+                        </div>
+                    </div>
+
+                    <div class="products-widget-slick" data-nav="#slick-nav-3">
+                        <div>
+
+                            @for (int i = 0; i < 3; i++)
+                            {
+                                <!-- product widget -->
+                                <div class="product-widget">
+                                    <div class="product-img">
+                                        <img src="~/img/@Model.TopRatedProducts[i].ImgTitle" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">@Model.TopRatedProducts[i].CompanyTitle</p>
+                                        <h3 class="product-name"><a asp-controller="Product" asp-action="Details" asp-route-prodId="@Model.TopRatedProducts[i].Id">@Model.TopRatedProducts[i].Title</a></h3>
+                                        <h4 class="product-price">@Model.TopRatedProducts[i].Price kr</h4>
+                                    </div>
+                                </div>
+                                <!-- /product widget -->
+                            }
+                        </div>
+
+                        <div>
+                            @for (int i = 3; i < 6; i++)
+                            {
+                                <!-- product widget -->
+                                <div class="product-widget">
+                                    <div class="product-img">
+                                        <img src="~/img/@Model.TopRatedProducts[i].ImgTitle" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">@Model.TopRatedProducts[i].CompanyTitle</p>
+                                        <h3 class="product-name"><a asp-controller="Product" asp-action="Details" asp-route-prodId="@Model.TopRatedProducts[i].Id">@Model.TopRatedProducts[i].Title</a></h3>
+                                        <h4 class="product-price">@Model.TopRatedProducts[i].Price kr</h4>
+                                    </div>
+                                </div>
+                                <!-- /product widget -->
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!-- /aside Widget -->
+
+            </div>
+            <!-- /ASIDE -->
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+                <!-- store top filter -->
+                <div class="store-filter clearfix">
+                    
+                    <div class="section-nav float-right">
+                        <ul class="section-tab-nav tab-nav">
+
+                            @foreach (var subCat in Model.SubCategories)
+                            {
+                                <li class="@subCat.Active"><a href="#"  onclick="FetchProductsBySubCategory(@subCat.Id); return false;">@subCat.Title</a></li>
+                            }
+
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- store products -->
+                <div id="prod" class="row">
+                    <!-- product -->
+                    @foreach (var prod in Model.Products)
+                    {
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="product">
+                                <div class="product-img">
+                                    <img src="~/img/@prod.ImgTitle" alt="" class="center">
+                                    <div class="product-label">
+                                        @if (prod.IsTopRated)
+                                        {
+                                            <p><span class="new">TOPPBETYG</span></p>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="product-body">
+                                    <div class="product-company">
+                                        <a href="">@prod.CompanyTitle</a>
+                                    </div>
+
+                                    <h3 class="product-name"><a asp-controller="Product" asp-action="Details" asp-route-prodId="@prod.Id">@prod.Title</a></h3>
+                                    <h4 class="product-price">@prod.Price kr</h4>
+                                    <div class="product-rating">
+                                        
+                                        @for (var i = 1; i < 6; i++)
+                                        {
+                                            if (i > prod.Rate)
+                                            {
+                                                <i class="fa fa-star-o"></i>
+
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-star"></i>
+                                            }
+                                            
+                                        }
+                                    </div>
+                                    <div class="product-btns">
+                                        <a asp-controller="Product" asp-action="Details" asp-route-prodId="@prod.Id" class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Se produkt</span></a>
+
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="clearfix visible-sm visible-xs"></div>
+                    }
+
+
+
+
+
+
+
+                </div>
+                <!-- /store products -->
+                <!-- /store top filter -->
+                <div id="selectedSubCategory"></div>
+               
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+@section Scripts
+{
+    <script>
+        function FetchProductsBySubCategory(id) {
+            $.ajax({
+                url: "/category/_selectsubcategory?id=" + id,
+                success: function(result) {
+                    $('#selectedSubCategory').html(result);
+                    $('#prod').remove();
+                }
+
+
+            });
+
+            $.ajax({
+                url: "/category/_showtree?id=" + id,
+                success: function (result) {
+                    $('#tree').remove();
+                    $('#newTree').html(result);
+                    
+                }
+            });
+        }
+
+    </script>
+}
